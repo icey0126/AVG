@@ -3,13 +3,12 @@ on:
   push:
     branches: [test]
 jobs:
-  sync_to_codeup:
+  git-mirror:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: zent-contrib/git-branch-sync-action@v1
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         with:
-          fetch-depth: 0
-      - uses: ./
-        with:
-          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          target_repo_url:  git@codeup.aliyun.com:635e9fbb77159c6e6b8f3b43/icey0126/AVG.git
+          source-branch: test
+          destination-repo: git@codeup.aliyun.com:635e9fbb77159c6e6b8f3b43/icey0126/AVG.git
