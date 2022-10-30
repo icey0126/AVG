@@ -6,23 +6,10 @@ jobs:
   sync_to_codeup:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v2
-      - name: Sync
-        uses: net-engine/github-repository-sync-action@v1
-          with:
-            # The SSH private key for SSH connection to the target repository.
-            # We strongly recommend saving this value as a GitHub Secret and using deploy
-            # keys within the target repository
-            ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-            # The SSH-based URL to the target repository
-            target_repo_url: git@codeup.aliyun.com:635e9fbb77159c6e6b8f3b43/icey0126/AVG.git
-      # - name: Sync To Codeup
-      #   env: 
-      #     WHO_TO_TRUST: ${{ secrets.SECRET_TOKEN }}
-      #     uses: repo-sync/pull-request@v2
-      #     with:
-      #       destination_branch: "master"
-      #       github_token: ${{ secrets.GITHUB_TOKEN }}
-      #       pr_label: "feature, automated pr,dev to master"
-      #       pr_title: "dev: master"
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: ./
+        with:
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          target_repo_url:  git@codeup.aliyun.com:635e9fbb77159c6e6b8f3b43/icey0126/AVG.git
