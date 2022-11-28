@@ -1,7 +1,7 @@
 name: Sync code to codeup 
 on:
-  push:
-    branches: [test]
+  schedule:
+    - cron: "*/5 * * * *"
 jobs:
   git-mirror:
     runs-on: ubuntu-latest
